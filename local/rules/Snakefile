@@ -1,6 +1,19 @@
 import os
 
-configfile: "config.yaml"
+#configfile: "config.yaml"
 
 if os.path.exists("Snakefile_versioned.sk"):
-    include "Snakefile_versioned.sk"
+    include: "Snakefile_versioned.sk"
+
+
+rule mirbase_mirna_embl:
+	output:
+		"miRNA.dat.gz"
+	shell:
+		"wget -O {output} 'https://www.mirbase.org/ftp/CURRENT/miRNA.dat.gz'"
+
+rule mirbase_mirna_chromosomePosition:
+	output:
+		"hsa.gff3"
+	shell:
+		"wget -O {output} 'https://www.mirbase.org/ftp/CURRENT/genomes/hsa.gff3'"
